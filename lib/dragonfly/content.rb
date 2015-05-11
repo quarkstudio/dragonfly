@@ -184,7 +184,7 @@ module Dragonfly
     #   "data:image/jpeg;base64,IGSsdhfsoi..."
     # @return [String] A data url representation of the data
     def b64_data
-      "data:#{mime_type};base64,#{Base64.encode64(data)}"
+      "data:#{mime_type};base64,#{Base64.strict_encode64(data)}"
     end
 
     def close
