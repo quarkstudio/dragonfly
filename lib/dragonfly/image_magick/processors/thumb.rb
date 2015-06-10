@@ -44,7 +44,7 @@ module Dragonfly
           content.process!(:convert, args, opts)
         end
 
-        private
+        protected
 
         def resize_args(geometry)
           "-resize #{geometry}"

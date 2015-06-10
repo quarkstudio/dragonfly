@@ -63,7 +63,7 @@ class MyModel
     run_destroy_callbacks {}
   end
 
-  private
+  protected
 
   def run_save_callbacks(&block)
     if respond_to?(:run_callbacks) # Rails 4

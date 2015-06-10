@@ -25,7 +25,7 @@ module Dragonfly
       q + string + q
     end
 
-    private
+    protected
 
     # Annoyingly, Open3 seems buggy on jruby/1.8.7:
     # Some versions don't yield a wait_thread in the block and

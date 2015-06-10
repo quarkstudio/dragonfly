@@ -4,6 +4,7 @@ require 'dragonfly/serializer'
 require 'dragonfly/content'
 require 'dragonfly/url_attributes'
 require 'dragonfly/job_endpoint'
+require 'base32'
 
 module Dragonfly
   class Job
@@ -56,15 +57,7 @@ module Dragonfly
       end
 
       def deserialize(string, app)
-        array = begin
-          Serializer.json_b64_decode(string)
-        rescue Serializer::BadString
-          if app.allow_legacy_urls
-            Serializer.marshal_b64_decode(string, :check_malicious => true) # legacy strings
-          else
-            raise
-          end
-        end
+        array = app.jobstore.deserialize(string)
         from_a(array, app)
       end
 
@@ -144,20 +137,19 @@ module Dragonfly
     end
 
     def serialize
-      Serializer.json_b64_encode(to_a)
+      app.jobstore.serialize(signature) do 
+        to_a
+      end
     end
 
     def signature
-      Digest::SHA1.hexdigest(to_unique_s)
-    end
-
-    def sha
       unless app.secret
         raise CannotGenerateSha, "A secret is required to sign and verify Dragonfly job requests. "\
-                                 "Use `secret '...'` or `verify_urls false` (not recommended!) in your config."
+                                 "Use `secret '...'` in your config."
       end
-      OpenSSL::HMAC.hexdigest('SHA256', app.secret, to_unique_s)[0,16]
+      Base32.encode32(OpenSSL::HMAC.digest('MD5', app.secret, to_unique_s))
     end
+    alias sha signature
 
     def validate_sha!(sha)
       case sha
@@ -244,7 +236,7 @@ module Dragonfly
     attr_writer :steps
     attr_accessor :next_step_index
 
-    private
+    protected
 
     def result
       apply

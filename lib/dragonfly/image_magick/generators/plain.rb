@@ -14,7 +14,7 @@ module Dragonfly
           url_attributes.name = "plain.#{extract_format(opts)}"
         end
 
-        private
+        protected
 
         def extract_format(opts)
           opts['format'] || 'png'

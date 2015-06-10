@@ -5,7 +5,7 @@ class DragonflyGenerator < Rails::Generators::Base
     template "initializer.rb.erb", "config/initializers/dragonfly.rb"
   end
 
-  private
+  protected
 
   def generate_secret
     SecureRandom.hex(32)

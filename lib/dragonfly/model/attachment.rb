@@ -166,7 +166,7 @@ module Dragonfly
 
       attr_reader :job
 
-      private
+      protected
 
       attr_writer :changed, :retained
 

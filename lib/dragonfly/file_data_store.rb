@@ -26,7 +26,7 @@ module Dragonfly
         FileUtils.rm_f meta_path(path)
       end
 
-      private
+      protected
 
       def meta_path(data_path)
         raise NotImplementedError
@@ -155,7 +155,7 @@ module Dragonfly
       "#{dirname}/#{basename}_#{(Time.now.usec*10 + rand(100)).to_s(32)}#{extname}"
     end
 
-    private
+    protected
 
     attr_reader :meta_store, :deprecated_meta_store
 

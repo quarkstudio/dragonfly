@@ -34,7 +34,7 @@ module Dragonfly
       "<#{self.class.name} for app #{@app.name.inspect} >"
     end
 
-    private
+    protected
 
     def routing_params(env)
       env['rack.routing_args'] ||

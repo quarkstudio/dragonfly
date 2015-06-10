@@ -20,7 +20,7 @@ module Dragonfly
         end
       end
 
-      private
+      protected
 
       def dragonfly_accessor(attribute, opts={}, &config_block)
         app = case opts[:app]

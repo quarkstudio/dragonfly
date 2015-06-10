@@ -7,7 +7,7 @@ module Dragonfly
     class Configurer
 
       class << self
-        private
+        protected
 
         def writer(*args)
           names, opts = extract_options(args)
@@ -71,7 +71,7 @@ module Dragonfly
         configure_with_plugin(obj, plugin, *args, &block)
       end
 
-      private
+      protected
 
       attr_reader :obj
 

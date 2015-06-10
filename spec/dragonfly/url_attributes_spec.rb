@@ -21,7 +21,7 @@ describe Dragonfly::UrlAttributes do
   end
 
   describe "format" do
-    # because 'format' is already private on kernel, using 'send' calls it so we need a workaround
+    # because 'format' is already protected on kernel, using 'send' calls it so we need a workaround
     it "acts like other openstruct attributes when using 'send'" do
       url_attributes.send(:format).should be_nil
       url_attributes.format = "clive"

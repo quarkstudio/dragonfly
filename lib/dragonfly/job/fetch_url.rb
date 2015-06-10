@@ -48,7 +48,7 @@ module Dragonfly
         end
       end
 
-      private
+      protected
 
       def get_following_redirects(url, redirect_limit=10)
         raise TooManyRedirects, "url #{url} redirected too many times" if redirect_limit == 0

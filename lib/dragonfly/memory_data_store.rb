@@ -20,7 +20,7 @@ module Dragonfly
       content_store.delete(uid)
     end
 
-    private
+    protected
 
     attr_reader :content_store
 

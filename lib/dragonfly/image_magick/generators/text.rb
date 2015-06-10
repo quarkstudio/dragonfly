@@ -91,7 +91,7 @@ module Dragonfly
           content.add_meta('format' => format, 'name' => "text.#{format}")
         end
 
-        private
+        protected
 
         def extract_format(opts)
           opts['format'] || 'png'

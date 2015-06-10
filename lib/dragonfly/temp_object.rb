@@ -170,7 +170,7 @@ module Dragonfly
       @tempfile
     end
 
-    private
+    protected
 
     def tempfile
       raise Closed, "can't read from tempfile as TempObject has been closed" if closed?

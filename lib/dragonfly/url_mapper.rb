@@ -49,7 +49,7 @@ module Dragonfly
       url
     end
 
-    private
+    protected
 
     def init_segments(patterns)
       @segments = []

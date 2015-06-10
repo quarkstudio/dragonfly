@@ -10,7 +10,7 @@ module Dragonfly
             instance_eval(&block)
           end
 
-          private
+          protected
 
           attr_reader :spec
 

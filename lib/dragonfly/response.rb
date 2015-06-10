@@ -39,7 +39,7 @@ module Dragonfly
       request.get? && !etag_matches?
     end
 
-    private
+    protected
 
     attr_reader :job, :env, :app
 

@@ -9,7 +9,7 @@ module Dragonfly
         end
       end
 
-      private
+      protected
       
       def save_dragonfly_attachments
         dragonfly_attachments.each do |attribute, attachment|

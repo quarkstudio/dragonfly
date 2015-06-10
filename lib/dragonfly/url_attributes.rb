@@ -10,7 +10,7 @@ module Dragonfly
       @table.reject{|k, v| v.nil? }.empty?
     end
 
-    # Hack so we can use .send('format') and it not call the private Kernel method
+    # Hack so we can use .send('format') and it not call the protected Kernel method
     def format
       @table[:format]
     end

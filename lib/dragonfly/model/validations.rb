@@ -16,7 +16,7 @@ module Dragonfly
           model.errors.add(attribute, message(nil, model))
         end
 
-        private
+        protected
 
         def matches?(property)
           if case_insensitive?
@@ -61,7 +61,7 @@ module Dragonfly
 
       end
 
-      private
+      protected
 
       def validates_property(property_name, options)
         raise ArgumentError, "you need to provide the attribute which has the property, using :of => <attribute_name>" unless options[:of]

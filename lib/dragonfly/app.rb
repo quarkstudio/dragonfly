@@ -21,7 +21,7 @@ module Dragonfly
       extend Forwardable
       def_delegator :configurer, :register_plugin
 
-      private :new # Hide 'new' - need to use 'instance'
+      protected :new # Hide 'new' - need to use 'instance'
 
       def instance(name=nil)
         name ||= DEFAULT_NAME
@@ -91,6 +91,10 @@ module Dragonfly
         obj.use_datastore(*args)
       end
 
+      def jobstore(*args)
+        obj.use_jobstore(*args)
+      end
+
       def mime_type(*args)
         obj.add_mime_type(*args)
       end
@@ -138,6 +142,16 @@ module Dragonfly
         store
       end
       raise "datastores have a new interface (read/write/destroy) - see docs at http://markevans.github.io/dragonfly for details" if datastore.respond_to?(:store) && !datastore.respond_to?(:write)
+    end
+
+    def jobstore
+      raise "You have to define a jobstore" if @jobstore.nil?
+      @jobstore
+    end
+    attr_writer :jobstore
+
+    def use_jobstore(store, *args)
+      self.jobstore = store
     end
 
     def add_generator(*args, &block)
@@ -273,7 +287,7 @@ module Dragonfly
       raise NoMethodError, "define_macro_on_include is deprecated - instead of defining #{name}, just extend the relevant class with Dragonfly::Model and use dragonfly_accessor"
     end
 
-    private
+    protected
 
     def file_ext_string(format)
       '.' + format.to_s.downcase.sub(/^.*\./,'')

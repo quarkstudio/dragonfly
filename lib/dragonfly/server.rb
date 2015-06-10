@@ -85,11 +85,12 @@ module Dragonfly
       params.merge!(stringify_keys(opts))
       params['job'] = job.serialize
       params['sha'] = job.sha if verify_urls
+      params['name'] ||= File.basename(job.uid) unless job.uid.nil?
       url = url_mapper.url_for(params)
       "#{host}#{path_prefix}#{url}"
     end
 
-    private
+    protected
 
     attr_reader :app
     attr_accessor :before_serve_callback, :url_mapper
