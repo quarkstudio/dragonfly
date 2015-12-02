@@ -80,7 +80,7 @@ module Dragonfly
       {
         "Content-Type" => job.mime_type,
         "Content-Length" => job.size.to_s,
-        "Content-Disposition" => filename_string
+        "Content-Disposition" => content_disposition
       }
     end
 
@@ -97,10 +97,13 @@ module Dragonfly
       end
     end
 
-    def filename_string
+    def content_disposition
       return unless job.name
-      filename = request_from_msie? ? URI.encode(job.name) : job.name
-      %(filename="#{filename}")
+      filename = request.params['filename'] || job.name
+      filename = URI.encode(filename) if request_from_msie? 
+      disposition = %(filename="#{filename}")
+      disposition = "attachment; #{disposition}" if request.params['attach']
+      disposition
     end
 
     def request_from_msie?
