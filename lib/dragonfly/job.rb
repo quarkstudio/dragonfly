@@ -137,9 +137,7 @@ module Dragonfly
     end
 
     def serialize
-      app.jobstore.serialize(signature) do 
-        to_a
-      end
+      app.jobstore.serialize self
     end
 
     def signature
@@ -147,7 +145,7 @@ module Dragonfly
         raise CannotGenerateSha, "A secret is required to sign and verify Dragonfly job requests. "\
                                  "Use `secret '...'` in your config."
       end
-      Base32.encode32(OpenSSL::HMAC.digest('MD5', app.secret, to_unique_s))
+      Base32.encode(OpenSSL::HMAC.digest('MD5', app.secret, to_unique_s))
     end
     alias sha signature
 
